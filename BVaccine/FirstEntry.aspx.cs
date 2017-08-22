@@ -74,6 +74,34 @@ namespace BVaccine
             }
         }
 
+        public bool required()
+        {
+            if (txtStatus.Text == "1")
+            {
+                if (txtGender.Text == "" || txtDOB.Text == "" || txtQ7.Text == "" || txtQ8.Text == "" || txtQ9.Text == "")
+                {
+                    Response.Write("<script type='text/javascript'>alert('Please fill in the required field')</script>");
+                    tblQ5.Focus(); //txtGender.Focus(); 
+                    return false;
+                }
+                if (txtQ9.Text == "1")
+                {
+                    if (txtQ10_code.Text == "" || txtQ11.Text == "" || txtQ12_code.Text == "" || txtQ13.Text == "" || txtQ14.Text == "" || txtQ15.Text == "" || txtQ16.Text == "")
+                    {
+                        Response.Write("<script type='text/javascript'>alert('Please fill in the required field')</script>");
+                        tblQ10.Focus();    //txtQ10_code.Focus();
+                        return false;
+                    }
+                    else
+                        return true;
+                }
+                else
+                    return true;
+            }           
+            else
+                return true;
+        }
+
         //protected void txtDSSID_TextChanged1(object sender, EventArgs e)
         //{
         //    //if (txtDSSID.Text == "")
@@ -247,12 +275,14 @@ namespace BVaccine
 
         protected void Btnsbmt_Click(object sender, EventArgs e)
         {
-            SubmitData();
-            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Form Submitted successfully!')", true);
-            Response.Write("<script type='text/javascript'>alert('Form Submitted successfully!')</script>");
-            //Response.Redirect("FirstEntry.aspx");
-
-            Server.Transfer("FirstEntry.aspx");
+            if (required())
+            {
+                SubmitData();
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Form Submitted successfully!')", true);
+                Response.Write("<script type='text/javascript'>alert('Form Submitted successfully!')</script>");
+                //Response.Redirect("FirstEntry.aspx");
+                Server.Transfer("FirstEntry.aspx");
+            }
         }
               
     }

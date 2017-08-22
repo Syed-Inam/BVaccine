@@ -248,21 +248,25 @@
     <h2 class="auto-style5">TOOL1: BASELINE VACCINE COVERAGE SURVEY</h2>
     <br class="auto-style2" />
     <div class="section-title container">
-        <table border="1" style="text-align: center; width: 100%; margin-top: 20px; background-color: #808080; border: 1px solid #BFBFBF; color: #2C3E50; font-family: Tahoma;">
+        <table border="1" style="text-align: center; width: 101%; margin-top: 20px; background-color: #808080; border: 1px solid #BFBFBF; color: #2C3E50; font-family: Tahoma;">
 
             <tr style="height: 60px; font-family: Calibri; font-size: 19px; color: white; ">
                 <td style="font-weight: 600;" class="auto-style2">DSSID</td>
                 <td style="text-align: left; padding-left: 15px">
-                    <asp:TextBox ID="txtDSSID" runat="server" Height="31px" placeholder="dssid" MaxLength="12" style="text-transform:uppercase;" ForeColor="Black" CssClass="auto-style2" OnTextChanged="txtDSSID_TextChanged1" AutoPostBack="true"></asp:TextBox>
-                    
+                    <asp:TextBox ID="txtDSSID" runat="server" Height="31px" placeholder="dssid" MaxLength="12" style="text-transform:uppercase;" ForeColor="Black" CssClass="auto-style2" AutoPostBack="true"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDSSID" ErrorMessage="*Required Field is empty" Font-Size="Smaller" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegEx2" runat="server" ControlToValidate="txtDSSID" ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Invalid input" Font-Size="Smaller" ForeColor="Red"></asp:RegularExpressionValidator>
                 </td>
                 <td style="font-weight: 600" class="auto-style2">Study ID</td>
-                <td style="text-align: left; padding-left: 15px">
-                    <asp:TextBox ID="txtStudyID" Width="150px" placeholder="case id" Height="31px" runat="server" MaxLength="5" ForeColor="Black" CssClass="auto-style2" OnTextChanged="txtStudyID_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <td style="text-align: left; padding-left: 15px" class="auto-style8">
+                    <asp:TextBox ID="txtStudyID" Width="150px" placeholder="case id" Height="31px" runat="server" MaxLength="5" ForeColor="Black" CssClass="auto-style2" AutoPostBack="true"></asp:TextBox>
                     <span class="auto-style2">-</span>
-                    <asp:TextBox ID="txtChildID" Width="40px" placeholder="id" runat="server" Height="31px" MaxLength="1" ForeColor="Black" CssClass="auto-style2"></asp:TextBox>
+                    <asp:TextBox ID="txtChildID" Width="40px" placeholder="id" runat="server" Height="31px" MaxLength="1" ForeColor="Black" CssClass="auto-style2" ></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegEx" runat="server" ControlToValidate="txtStudyID" ValidationExpression="^[0-9]+$" ErrorMessage="Invalid input" Font-Size="Smaller" ForeColor="Red"></asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="Required1" runat="server" ControlToValidate="txtStudyID" ErrorMessage="*Required Field is empty" Font-Size="Smaller" ForeColor="Red"></asp:RequiredFieldValidator>
+                </td>
+                <td class="auto-style9">
+                    <asp:Button ID="checkButton" class="btn-default" runat="server" Text="Check" OnClick="checkButton_Click"  />
                 </td>
             </tr>
         </table>
