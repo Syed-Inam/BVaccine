@@ -6,14 +6,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        .auto-style1 {
-            text-align: center;
-            color: #7C7C7C;
-            border-top: 1px dotted #7C7C7C;
-            padding-top: 10px;
-            font-size: medium;
-        }
-
+        
         .auto-style2 {
             font-size: medium;
         }
@@ -41,6 +34,23 @@
 
         .auto-style7 {
             height: 61px;
+        }
+        .auto-style8 {
+            width: 500px;
+        }
+        .auto-style9 {
+            width: 155px;
+        }
+        .auto-style11 {
+            padding-left: 15px;
+            width: 1705px;
+        }
+        .auto-style12 {
+            width: 88px;
+        }
+        .auto-style13 {
+            font-size: medium;
+            width: 76px;
         }
     </style>
 
@@ -98,6 +108,23 @@
                 }
             }
         }
+
+        function required() {
+            if (document.getElementById("<%=txtStatus.ClientID%>").value == 1) {
+                if (document.getElementById("<%=txtGender.ClientID%>").value == "") {
+                    alert("Please fill in the required field");
+                    document.getElementById("<%=txtGender.ClientID%>").focus();
+                }
+            }
+        }
+
+        //function customValidate(source, args) {
+
+        //    if (document.getElementById("").value != 1) 
+        //       //ValidatorEnable(myVal, false);
+
+        //        alert(source + " " + arg.Value);            
+        //}
 
         function disable(id) {
             if (id == 'txtStatus') {
@@ -216,7 +243,7 @@
 
             var dife = datediff(visitDate, birthDate);
             var monleft = (dife[0] * 12) + dife[1];
-            document.getElementById("txtAge").value = monleft;
+            document.getElementById("LblAge").innerText = monleft + " months";
             //document.getElementById("txtAge").value = dife[0] + " years, " + dife[1] + " months, and " + dife[2] + " days";
         }
 
@@ -252,21 +279,21 @@
 
             <tr style="height: 60px; font-family: Calibri; font-size: 19px; color: white; ">
                 <td style="font-weight: 600;" class="auto-style2">DSSID</td>
-                <td style="text-align: left; padding-left: 15px">
-                    <asp:TextBox ID="txtDSSID" runat="server" Height="31px" placeholder="dssid" MaxLength="12" style="text-transform:uppercase;" ForeColor="Black" CssClass="auto-style2" AutoPostBack="true"></asp:TextBox>
+                <td style="text-align: left; padding-left: 15px" class="auto-style8">
+                    <asp:TextBox ID="txtDSSID" runat="server" Height="31px" placeholder="dssid" MaxLength="12" style="text-transform:uppercase;" ForeColor="Black" CssClass="auto-style2" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDSSID" ErrorMessage="*Required Field is empty" Font-Size="Smaller" ForeColor="Red"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegEx2" runat="server" ControlToValidate="txtDSSID" ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Invalid input" Font-Size="Smaller" ForeColor="Red"></asp:RegularExpressionValidator>
                 </td>
-                <td style="font-weight: 600" class="auto-style2">Study ID</td>
+                <td style="font-weight: 600" class="auto-style13">Study ID</td>
                 <td style="text-align: left; padding-left: 15px" class="auto-style8">
-                    <asp:TextBox ID="txtStudyID" Width="150px" placeholder="case id" Height="31px" runat="server" MaxLength="5" ForeColor="Black" CssClass="auto-style2" AutoPostBack="true"></asp:TextBox>
+                    <asp:TextBox ID="txtStudyID" Width="150px" placeholder="case id" Height="31px" runat="server" MaxLength="5" ForeColor="Black" CssClass="auto-style2" AutoPostBack="False"></asp:TextBox>
                     <span class="auto-style2">-</span>
                     <asp:TextBox ID="txtChildID" Width="40px" placeholder="id" runat="server" Height="31px" MaxLength="1" ForeColor="Black" CssClass="auto-style2" ></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegEx" runat="server" ControlToValidate="txtStudyID" ValidationExpression="^[0-9]+$" ErrorMessage="Invalid input" Font-Size="Smaller" ForeColor="Red"></asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="Required1" runat="server" ControlToValidate="txtStudyID" ErrorMessage="*Required Field is empty" Font-Size="Smaller" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
                 <td class="auto-style9">
-                    <asp:Button ID="checkButton" class="btn-default" runat="server" Text="Check" OnClick="checkButton_Click"  />
+                    <asp:Button ID="checkButton" class="btn-primary btn-sm" runat="server" Text="Check" OnClick="checkButton_Click"  />
                 </td>
             </tr>
         </table>
@@ -326,7 +353,10 @@
                 <tr id="Tr1" class="thStyle" runat="server">
                     <td id="Td1" class="tdStyle" runat="server"><b>5.</b> Gender of Child:</td>
                     <td id="Td2" colspan="3" class="tdStyle" runat="server">
-                        <asp:TextBox ID="txtGender" runat="server" onkeyup="input('txtGender')" ClientIDMode="Static" MaxLength="1" CssClass="txtbxRd" placeholder="1 / 2" Width="150px"></asp:TextBox></td>
+                        <asp:TextBox ID="txtGender" runat="server" class="example" onkeyup="input('txtGender')" ClientIDMode="Static" MaxLength="1" CssClass="txtbxRd" placeholder="1 / 2" Width="150px"></asp:TextBox>
+                        
+                        <%--<asp:CustomValidator ID="CV1" class="req1" runat="server" ClientIDMode="Static" ControlToValidate="txtGender" ValidateEmptyText="true" ErrorMessage="Value is required" ClientValidationFunction="customValidate"></asp:CustomValidator>--%>
+                    </td>
                 </tr>
                 <tr class="thStyle">
                     <td class="tdStyle"><span class="auto-style5">6.</span><span class="auto-style2"> Date of Birth:</span></td>
@@ -336,7 +366,9 @@
                         <asp:CompareValidator ID="CompareDOB" runat="server" ControlToCompare="txtDOV1" ControlToValidate="txtDOB" Type="Date" Operator="LessThan" ErrorMessage="*Invalid Date" Font-Size="Smaller" ForeColor="Red" CssClass="auto-style2"></asp:CompareValidator></td>
                     <td class="tdStyle" style="padding-left: 20px">Age:</td>
                     <td class="tdStyle tdText">
-                        <asp:TextBox ID="txtAge" Width="100px" runat="server" ClientIDMode="Static" Enabled="True" CssClass="auto-style2" MaxLength="2" placeholder="months"></asp:TextBox></td>
+                        <asp:Label ID="LblAge" runat="server" ClientIDMode="Static"></asp:Label>
+                        <%--<asp:TextBox ID="txtAge" Width="100px" runat="server" ClientIDMode="Static" Enabled="True" CssClass="auto-style2" MaxLength="2" placeholder="months"></asp:TextBox>--%>
+                    </td>
                 </tr>
                 <tr class="thStyle">
                     <td colspan="2" class="tdStyle"><span class="auto-style5">7.</span><span class="auto-style2"> Is the seleted child currently availabe at home?</span></td>
@@ -353,39 +385,40 @@
                     <td class="auto-style7">
                         <asp:TextBox ID="txtQ9" runat="server" onkeyup="input('txtQ9'); disable('txtQ9'); enable('txtQ9');" ClientIDMode="Static" MaxLength="1" CssClass="auto-style2" placeholder="1 / 2" Width="140px"></asp:TextBox></td>
                     <td class="auto-style7">
-                        <asp:TextBox ID="txtQ9_x" runat="server" onkeyup="" ClientIDMode="Static" MaxLength="2" CssClass="auto-style2" placeholder="reason" Width="120px" Enabled="False"></asp:TextBox></td>
+                        <asp:TextBox ID="txtQ9_x" runat="server" onkeyup="" ClientIDMode="Static" MaxLength="2" CssClass="auto-style2" placeholder="reason" Width="120px" Enabled="False"></asp:TextBox>
+                    </td>
                 </tr>
             </table>
 
                 <table id="tblQ10" runat="server" class="table table-hover" style="text-align: left; width: 100%; margin-top: 20px; font-size: 16px; background-color: #DDDDDD; font-family: Tahoma;">
                     <tr class="thStyle">
-                        <td colspan="2" class="tdStyle"><span class="auto-style5">10.</span><span class="auto-style2"> Nearest EPI center to the household (to be filled by interview)</span></td>
-                        <td class="tdStyle tdText">
+                        <td colspan="2" class="auto-style11"><span class="auto-style5">10.</span><span class="auto-style2"> Nearest EPI center to the household (to be filled by interview)</span></td>
+                        <td class="auto-style12">
                             <asp:TextBox ID="txtQ10_nm" runat="server" placeholder="??" CssClass="auto-style2" MaxLength="10" Width="140px" Enabled="False"></asp:TextBox></td>
                         <td class="tdStyle tdText">
                             <asp:TextBox ID="txtQ10_code" runat="server" MaxLength="2" CssClass="auto-style2" placeholder="code" Width="120px"></asp:TextBox></td>
                     </tr>
                     <tr class="thStyle">
-                        <td colspan="2" class="tdStyle"><span class="auto-style5">11.</span><span class="auto-style2"> Approximate distance in KM of this household from EPI centre (to be filled by interviewer)</span></td>
+                        <td colspan="2" class="auto-style11"><span class="auto-style5">11.</span><span class="auto-style2"> Approximate distance in KM of this household from EPI centre (to be filled by interviewer)</span></td>
                         <td colspan="2" class="tdStyle tdText">
                             <asp:TextBox ID="txtQ11" runat="server" placeholder="km" CssClass="auto-style2" MaxLength="2" Width="140px"></asp:TextBox></td>
                     </tr>
                     <tr class="thStyle">
-                        <td colspan="2" class="tdStyle"><span class="auto-style5">12.</span><span class="auto-style2"> To which EPI center this family usually goes to?</span></td>
-                        <td class="tdStyle tdText">
+                        <td colspan="2" class="auto-style11"><span class="auto-style5">12.</span><span class="auto-style2"> To which EPI center this family usually goes to?</span></td>
+                        <td class="auto-style12">
                             <asp:TextBox ID="txtQ12_nm" runat="server" placeholder="??" CssClass="auto-style2" MaxLength="10" Width="140px" Enabled="False"></asp:TextBox></td>
                         <td class="tdStyle tdText">
                             <asp:TextBox ID="txtQ12_code" runat="server" MaxLength="2" CssClass="auto-style2" placeholder="code" Width="120px"></asp:TextBox></td>
                     </tr>
                     <tr class="thStyle">
-                        <td colspan="2" class="tdStyle"><span class="auto-style5">13.</span><span class="auto-style2"> Approximate distance in KM of this household from EPI centre: </span></td>
+                        <td colspan="2" class="auto-style11"><span class="auto-style5">13.</span><span class="auto-style2"> Approximate distance in KM of this household from EPI centre: </span></td>
                         <td colspan="2" class="tdStyle tdText">
                             <asp:TextBox ID="txtQ13" runat="server" placeholder="km" CssClass="auto-style2" MaxLength="2" Width="140px"></asp:TextBox></td>
 
                     </tr>
                     <tr class="thStyle">
-                        <td colspan="2" class="tdStyle"><span class="auto-style5">14.</span><span class="auto-style2"> Which language is commonly spoken at household?</span></td>
-                        <td class="tdStyle tdText">
+                        <td colspan="2" class="auto-style11"><span class="auto-style5">14.</span><span class="auto-style2"> Which language is commonly spoken at household?</span></td>
+                        <td class="auto-style12">
                             <asp:TextBox ID="txtQ14" runat="server" placeholder="1 to 14" onkeyup="enable('txtQ14'); language('txtQ14')" ClientIDMode="Static" type="number" CssClass="auto-style2" MaxLength="2" Width="140px"></asp:TextBox></td>
                         <td class="tdStyle tdText">
                             <asp:TextBox ID="txtQ14_x" runat="server" CssClass="auto-style2" ClientIDMode="Static" placeholder="if 14 then code" MaxLength="2" Width="125px" Enabled="False"></asp:TextBox></td>
@@ -833,7 +866,7 @@
                 </table>
             <br />
 
-            <asp:Button ID="Btnsbmt" runat="server" Text="Submit" class="btn-lg" Width="20%" OnClick="Btnsbmt_Click" Style="background-color: lightgray;" />
+            <asp:Button ID="Btnsbmt" runat="server" Text="Submit" class="btn-lg btn-primary" Width="20%" OnClick="Btnsbmt_Click" />
         </asp:Panel>
     </div>
 </div>

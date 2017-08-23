@@ -385,7 +385,8 @@
                     <td class="auto-style7">
                         <asp:TextBox ID="txtQ9" runat="server" onkeyup="input('txtQ9'); disable('txtQ9'); enable('txtQ9');" ClientIDMode="Static" MaxLength="1" CssClass="auto-style2" placeholder="1 / 2" Width="140px"></asp:TextBox></td>
                     <td class="auto-style7">
-                        <asp:TextBox ID="txtQ9_x" runat="server" onkeyup="" ClientIDMode="Static" MaxLength="2" CssClass="auto-style2" placeholder="reason" Width="120px" Enabled="False"></asp:TextBox></td>
+                        <asp:TextBox ID="txtQ9_x" runat="server" onkeyup="" ClientIDMode="Static" MaxLength="2" CssClass="auto-style2" placeholder="reason" Width="120px" Enabled="False"></asp:TextBox>
+                    </td>
                 </tr>
             </table>
 

@@ -35,33 +35,44 @@ namespace BVaccine
             }
         }
 
+        public bool IDCheck2()
+        {
+            string abc = string.Join("-", txtStudyID.Text, txtChildID.Text);
+            SqlConnection con = new SqlConnection(connstring);
+            SqlCommand cmd2 = new SqlCommand("Select * from VaccineData_2 where dssid='" + txtDSSID.Text + "' AND study_id='" + abc + "'", con);
+            con.Open();
+            SqlDataReader drd = cmd2.ExecuteReader();
+
+            if (drd.Read() == true)
+                return true;
+            else
+                return false;
+        }
+
         public bool IDCheck()
         {
             string abc = string.Join("-", txtStudyID.Text, txtChildID.Text);
-                SqlConnection con = new SqlConnection(connstring);
-                SqlCommand cmd = new SqlCommand("Select * from VaccineData where dssid='" + txtDSSID.Text + "' AND study_id='" + abc + "'", con);
-                con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
+            SqlConnection con = new SqlConnection(connstring);
+            SqlCommand cmd = new SqlCommand("Select * from VaccineData where dssid='" + txtDSSID.Text + "' AND study_id='" + abc + "'", con);
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
 
-                if (dr.Read() == true)
+            if (dr.Read() == true)
+            {
+                IDCheck2();
+                if (IDCheck2())
                 {
-                    SqlCommand cmnd = new SqlCommand("Select * from VaccineData_2 where dssid='" + txtDSSID.Text + "' AND study_id='" + abc + "'", con);
-
-                    if (dr.Read() == true)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('2nd Entry of this ID is already done!')", true);
-                        return false;                        
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('This ID does not exist in the First Entry!')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('2nd Entry of this ID has already done!')", true);
                     return false;
                 }
+                else
+                    return true;
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('First Entry of this ID does not exist!')", true);
+                return false;
+            }
         }
 
         protected void checkButton_Click(object sender, EventArgs e)
@@ -131,7 +142,7 @@ namespace BVaccine
                 cmd.Parameters.AddWithValue("@bla04", txtStatus.Text);
                 cmd.Parameters.AddWithValue("@bla05", txtGender.Text);
                 cmd.Parameters.AddWithValue("@bla06_dt", (txtDOB.Text));
-                cmd.Parameters.AddWithValue("@bla06_age", txtAge.Text);
+                cmd.Parameters.AddWithValue("@bla06_age", LblAge.Text);
                 cmd.Parameters.AddWithValue("@bla07", txtQ7.Text);
                 cmd.Parameters.AddWithValue("@bla08", txtQ8.Text);
                 cmd.Parameters.AddWithValue("@bla09", txtQ9.Text);
